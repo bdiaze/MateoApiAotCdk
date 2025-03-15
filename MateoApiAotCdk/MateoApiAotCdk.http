@@ -1,0 +1,11 @@
+@MateoApiAotCdk_HostAddress = http://localhost:5032
+
+GET {{MateoApiAotCdk_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{MateoApiAotCdk_HostAddress}}/todos/1
+Accept: application/json
+
+###
