@@ -6,6 +6,7 @@ namespace MateoApiAotCdk {
     [JsonSerializable(typeof(APIGatewayProxyRequest))]
     [JsonSerializable(typeof(APIGatewayProxyResponse))]
     [JsonSerializable(typeof(Dictionary<string, object>))]
+    [JsonSerializable(typeof(Todo[]))]
     public partial class CustomSerializationContext: JsonSerializerContext {
     }
 }
