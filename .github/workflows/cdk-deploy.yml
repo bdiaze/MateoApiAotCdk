@@ -44,7 +44,7 @@ jobs:
                   node-version: ${{ vars.VERSION_NODEJS }}
                   
             - name: Instalar .NET Lambda Tools
-              uses: dotnet tool install -g Amazon.Lambda.Tools
+              run: dotnet tool install -g Amazon.Lambda.Tools
                                                       
             - name: Instalar AWS CDK
               run: npm install -g aws-cdk
