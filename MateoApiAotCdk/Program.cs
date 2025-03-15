@@ -1,10 +1,16 @@
 using System.Text.Json.Serialization;
+using Amazon.Lambda.Serialization.SystemTextJson;
+using MateoApiAotCdk;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
+    options.SerializerOptions.TypeInfoResolver = CustomSerializationContext.Default;
+});
+
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi, options => {
+    options.Serializer = new SourceGeneratorLambdaJsonSerializer<CustomSerializationContext>();
 });
 
 var app = builder.Build();
