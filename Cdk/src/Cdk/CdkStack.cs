@@ -99,6 +99,7 @@ namespace Cdk {
                 FunctionName = $"{appName}LambdaFunction",
                 Timeout = Duration.Seconds(double.Parse(timeout)),
                 MemorySize = double.Parse(memorySize),
+                Architecture = Architecture.ARM_64,
                 LogGroup = logGroup,
                 Environment = new Dictionary<string, string> {
                     { "APP_NAME", appName },
