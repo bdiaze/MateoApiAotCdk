@@ -13,8 +13,9 @@ using MateoApiAotCdk.Helpers.AwsServices;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
-builder.Services.ConfigureHttpJsonOptions(options => {
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, CustomSerializationContext.Default);
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.TypeInfoResolver = CustomSerializationContext.Default;
 });
 
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi, options => {
@@ -22,7 +23,7 @@ builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi, options => {
 });
 
 #if RELEASE
-    string secretArnConnectionString = Environment.GetEnvironmentVariable("SECRET_ARN_CONNECTION_STRING") ?? throw new ArgumentNullException("SECRET_ARN_CONNECTION_STRING");
+string secretArnConnectionString = Environment.GetEnvironmentVariable("SECRET_ARN_CONNECTION_STRING") ?? throw new ArgumentNullException("SECRET_ARN_CONNECTION_STRING");
     string parameterArnCognitoRegion = Environment.GetEnvironmentVariable("PARAMETER_ARN_COGNITO_REGION") ?? throw new ArgumentNullException("PARAMETER_ARN_COGNITO_REGION");
     string parameterArnCognitoUserPoolId = Environment.GetEnvironmentVariable("PARAMETER_ARN_COGNITO_USER_POOL_ID") ?? throw new ArgumentNullException("PARAMETER_ARN_COGNITO_USER_POOL_ID");
     string parameterArnCognitoUserPoolClientId = Environment.GetEnvironmentVariable("PARAMETER_ARN_COGNITO_USER_POOL_CLIENT_ID") ?? throw new ArgumentNullException("PARAMETER_ARN_COGNITO_USER_POOL_CLIENT_ID");

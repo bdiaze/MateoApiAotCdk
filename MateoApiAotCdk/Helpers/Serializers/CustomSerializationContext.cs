@@ -5,10 +5,6 @@ using MateoApiAotCdk.Models;
 
 namespace MateoApiAotCdk.Helpers.Serializers {
 
-    [JsonSourceGenerationOptions(
-        WriteIndented = true,
-        PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
-        GenerationMode = JsonSourceGenerationMode.Serialization)]
     [JsonSerializable(typeof(APIGatewayProxyRequest))]
     [JsonSerializable(typeof(APIGatewayProxyResponse))]
     [JsonSerializable(typeof(Dictionary<string, string>))]
