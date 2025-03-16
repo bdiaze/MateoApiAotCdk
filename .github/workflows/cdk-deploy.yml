@@ -25,6 +25,7 @@ jobs:
             VPC_ID: ${{ vars.VPC_ID }}
             SUBNET_ID_1: ${{ vars.SUBNET_ID_1 }}
             SUBNET_ID_2: ${{ vars.SUBNET_ID_2 }}
+            RDS_SECURITY_GROUP_ID: ${{ vars.RDS_SECURITY_GROUP_ID }}
             ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
             SECRET_ARN_CONNECTION_STRING: ${{ vars.SECRET_ARN_CONNECTION_STRING }}
             PARAMETER_ARN_COGNITO_REGION: ${{ vars.PARAMETER_ARN_COGNITO_REGION }}
