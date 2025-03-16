@@ -50,6 +50,7 @@ jobs:
               run: npm install -g aws-cdk
                             
             - name: Publish .NET API
+              working-directory: ${{ vars.API_PROJECT_DIRECTORY }}
               run: dotnet lambda package --property:PublishDir=../publish --runtime linux-x64
               
             - name: Compress Publish Directory .NET API
