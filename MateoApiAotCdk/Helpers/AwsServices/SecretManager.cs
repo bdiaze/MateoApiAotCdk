@@ -1,6 +1,7 @@
 ﻿using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
-using Newtonsoft.Json;
+using MateoApiAotCdk.Helpers.Serializers;
+using System.Text.Json;
 
 namespace MateoApiAotCdk.Helpers.AwsServices {
     public class SecretManager {
@@ -14,7 +15,7 @@ namespace MateoApiAotCdk.Helpers.AwsServices {
                 throw new Exception("No se pudo rescatar correctamente el secreto");
             }
 
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(response.SecretString)!;
+            return JsonSerializer.Deserialize<Dictionary<string, string>>(response.SecretString, CustomSerializationContext.Default.DictionaryStringString)!;
         }
     }
 }

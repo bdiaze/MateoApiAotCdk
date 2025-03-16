@@ -13,6 +13,14 @@ using MateoApiAotCdk.Helpers.AwsServices;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
+builder.Services.ConfigureHttpJsonOptions(options => {
+    options.SerializerOptions.TypeInfoResolverChain.Insert(0, CustomSerializationContext.Default);
+});
+
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi, options => {
+    options.Serializer = new SourceGeneratorLambdaJsonSerializer<CustomSerializationContext>();
+});
+
 #if RELEASE
     string secretArnConnectionString = Environment.GetEnvironmentVariable("SECRET_ARN_CONNECTION_STRING") ?? throw new ArgumentNullException("SECRET_ARN_CONNECTION_STRING");
     string parameterArnCognitoRegion = Environment.GetEnvironmentVariable("PARAMETER_ARN_COGNITO_REGION") ?? throw new ArgumentNullException("PARAMETER_ARN_COGNITO_REGION");
@@ -29,26 +37,17 @@ var builder = WebApplication.CreateSlimBuilder(args);
     // Se crean variables vacias en formato DEBUG para habilitar las migraciones de EFCore...
     // Comando para migrar: dotnet ef migrations add [NombreMigración] --project MateoAPI
     Dictionary<string, string> connectionString = new() {
-        { "Host", "" },
-        { "Port", "" },
-        { "MateoDatabase", "" },
-        { "MateoAppUsername", "" },
-        { "MateoAppPassword", "" }
-    };
+            { "Host", "" },
+            { "Port", "" },
+            { "MateoDatabase", "" },
+            { "MateoAppUsername", "" },
+            { "MateoAppPassword", "" }
+        };
     string cognitoRegion = "";
     string cognitoUserPoolId = "";
     string[] cognitoAppClientId = [""];
     string[] allowedDomains = [""];
 #endif
-
-builder.Services.ConfigureHttpJsonOptions(options =>
-{
-    options.SerializerOptions.TypeInfoResolver = CustomSerializationContext.Default;
-});
-
-builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi, options => {
-    options.Serializer = new SourceGeneratorLambdaJsonSerializer<CustomSerializationContext>();
-});
 
 builder.Services.AddDbContextPool<MateoDbContext>(options => options.UseNpgsql(
     $"Server={connectionString["Host"]};Port={connectionString["Port"]};SslMode=prefer;" +
