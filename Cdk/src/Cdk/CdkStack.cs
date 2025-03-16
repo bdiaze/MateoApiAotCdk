@@ -28,7 +28,10 @@ namespace Cdk {
             string allowedDomains = System.Environment.GetEnvironmentVariable("ALLOWED_DOMAINS") ?? throw new ArgumentNullException("ALLOWED_DOMAINS");
 
             // Variables de entorno de la lambda...
+            string secretArnConnectionString = System.Environment.GetEnvironmentVariable("SECRET_ARN_CONNECTION_STRING") ?? throw new ArgumentNullException("SECRET_ARN_CONNECTION_STRING");
+            string parameterArnCognitoRegion = System.Environment.GetEnvironmentVariable("PARAMETER_ARN_COGNITO_REGION") ?? throw new ArgumentNullException("PARAMETER_ARN_COGNITO_REGION");
             string parameterArnCognitoUserPoolId = System.Environment.GetEnvironmentVariable("PARAMETER_ARN_COGNITO_USER_POOL_ID") ?? throw new ArgumentNullException("PARAMETER_ARN_COGNITO_USER_POOL_ID");
+            string parameterArnCognitoUserPoolClientId = System.Environment.GetEnvironmentVariable("PARAMETER_ARN_COGNITO_USER_POOL_CLIENT_ID") ?? throw new ArgumentNullException("PARAMETER_ARN_COGNITO_USER_POOL_CLIENT_ID");
             string parameterNameApiAllowedDomains = System.Environment.GetEnvironmentVariable("PARAMETER_NAME_API_ALLOWED_DOMAINS") ?? throw new ArgumentNullException("PARAMETER_NAME_API_ALLOWED_DOMAINS");
 
             // Se obtiene la VPC y subnets...
@@ -102,6 +105,10 @@ namespace Cdk {
                 LogGroup = logGroup,
                 Environment = new Dictionary<string, string> {
                     { "APP_NAME", appName },
+                    { "SECRET_ARN_CONNECTION_STRING", secretArnConnectionString },
+                    { "PARAMETER_ARN_COGNITO_REGION", parameterArnCognitoRegion },
+                    { "PARAMETER_ARN_COGNITO_USER_POOL_ID", parameterArnCognitoUserPoolId },
+                    { "PARAMETER_ARN_COGNITO_USER_POOL_CLIENT_ID", parameterArnCognitoUserPoolClientId },
                     { "PARAMETER_ARN_API_ALLOWED_DOMAINS", stringParameterApiAllowedDomains.ParameterArn },
                 },
                 Vpc = vpc,
