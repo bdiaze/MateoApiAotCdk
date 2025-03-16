@@ -50,12 +50,7 @@ jobs:
               run: npm install -g aws-cdk
                             
             - name: Publish .NET API
-              working-directory: ${{ vars.API_PROJECT_DIRECTORY }}
-              run: dotnet lambda package --property:PublishDir=../publish --runtime linux-x64
-              
-            - name: Compress Publish Directory .NET API
-              working-directory: ./publish
-              run: zip -r -q -T ./publish.zip ./*
+              run: dotnet lambda package ./publish/publish.zip -pl ${{ vars.API_PROJECT_DIRECTORY }}
       
             - name: Configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
