@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.Security.Claims;
 using MateoApiAotCdk.Helpers.AwsServices;
+using MateoApiAotCdk.Entities.OptimizeDbContext;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -50,9 +51,13 @@ string secretArnConnectionString = Environment.GetEnvironmentVariable("SECRET_AR
     string[] allowedDomains = [""];
 #endif
 
-builder.Services.AddDbContextPool<MateoDbContext>(options => options.UseNpgsql(
-    $"Server={connectionString["Host"]};Port={connectionString["Port"]};SslMode=prefer;" +
-    $"Database={connectionString["MateoDatabase"]};User Id={connectionString["MateoDatabase"]};Password='{connectionString["MateoDatabase"]}';"
+// Comando para actualizar clases de optimize EF: dotnet ef dbcontext optimize -p MateoApiAotCdk -o ./Entities/OptimizeDbContext --precompile-queries --nativeaot
+builder.Services.AddDbContextPool<MateoDbContext>(options => 
+    options
+        .UseModel(MateoDbContextModel.Instance)
+        .UseNpgsql(
+            $"Server={connectionString["Host"]};Port={connectionString["Port"]};SslMode=prefer;" +
+            $"Database={connectionString["MateoDatabase"]};User Id={connectionString["MateoDatabase"]};Password='{connectionString["MateoDatabase"]}';"
 ));
 
 builder.Services.AddCors(item => {
