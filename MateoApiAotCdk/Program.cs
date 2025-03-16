@@ -63,6 +63,8 @@ builder.Services.AddCors(item => {
     });
 });
 
+builder.Services.AddAuthorization();
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => {
@@ -118,7 +120,7 @@ entrenamientoRouteGroup.MapGet("/listar", async (DateTime desde, DateTime hasta,
             $"{ex}");
         return Results.StatusCode(StatusCodes.Status500InternalServerError);
     }
-});
+}).RequireAuthorization();
 
 
 var sampleTodos = new Todo[] {
