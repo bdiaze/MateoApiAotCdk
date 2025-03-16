@@ -80,11 +80,23 @@ namespace Cdk {
                         new PolicyDocument(new PolicyDocumentProps {
                             Statements = [
                                 new PolicyStatement(new PolicyStatementProps{
+                                    Sid = $"{appName}AccessToSecretManager",
+                                    Actions = [
+                                        "secretsmanager:GetSecretValue"
+                                    ],
+                                    Resources = [
+                                        secretArnConnectionString,
+                                    ],
+                                }),
+                                new PolicyStatement(new PolicyStatementProps{
                                     Sid = $"{appName}AccessToParameterStore",
                                     Actions = [
                                         "ssm:GetParameter"
                                     ],
                                     Resources = [
+                                        parameterArnCognitoRegion,
+                                        parameterArnCognitoUserPoolId,
+                                        parameterArnCognitoUserPoolClientId,
                                         stringParameterApiAllowedDomains.ParameterArn,
                                     ],
                                 })
