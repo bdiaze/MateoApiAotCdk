@@ -47,15 +47,9 @@ jobs:
               with:
                   node-version: ${{ vars.VERSION_NODEJS }}
               
-            - name: Instalar .NET EF Core
-              run: dotnet tool install --global dotnet-ef
-              
             - name: Instalar .NET Lambda Tools
               run: dotnet tool install -g Amazon.Lambda.Tools
-              
-            - name: Generación de Modelo Compilado EF Core
-              run: dotnet ef dbcontext optimize --precompile-queries --nativeaot -p ${{ vars.API_PROJECT_DIRECTORY }}
-                                                      
+                                                
             - name: Instalar AWS CDK
               run: npm install -g aws-cdk
                             
