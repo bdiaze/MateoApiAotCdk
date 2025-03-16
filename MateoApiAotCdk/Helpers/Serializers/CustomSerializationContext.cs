@@ -9,6 +9,7 @@ namespace MateoApiAotCdk.Helpers.Serializers {
     [JsonSerializable(typeof(Dictionary<string, object>))]
     [JsonSerializable(typeof(EntEntrenamiento))]
     [JsonSerializable(typeof(SalEntrenamiento))]
+    [JsonSerializable(typeof(Todo[]))]
     public partial class CustomSerializationContext : JsonSerializerContext {
     }
 }
