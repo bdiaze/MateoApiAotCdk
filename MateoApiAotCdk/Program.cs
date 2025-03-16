@@ -4,12 +4,12 @@ using MateoApiAotCdk.Entities.Contexts;
 using MateoApiAotCdk.Entities.Models;
 using MateoApiAotCdk.Helpers.Serializers;
 using MateoApiAotCdk.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.Security.Claims;
+using MateoApiAotCdk.Helpers.AwsServices;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
